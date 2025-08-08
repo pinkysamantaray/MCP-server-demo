@@ -17,12 +17,15 @@ For local server:
 
 For Docker build:
 `docker buildx build --platform linux/amd64,linux/arm64 -t pinkysamantaray/mcp-server-demo:latest .`
+`docker buildx build --platform linux/amd64,linux/arm64 -t postnlmcp.azurecr.io/mcp-server-demo:latest .`
 
 For Docker run:
 `docker run --name mcp-server-demo -d -p 3001:3000 pinkysamantaray/mcp-server-demo`
+Azure (ACR) Docker > `docker run --name mcp-server-demo -d -p 3001:3000 postnlmcp.azurecr.io/mcp-server-demo`
 
 Docker push to dockerhub
 `docker push pinkysamantaray/mcp-server-demo`
+Azure (ACR) Docker > `docker push postnlmcp.azurecr.io/mcp-server-demo`
 
 Steps to follow in case of a new commit:
 git commit > docker build > docker push > render deploy
