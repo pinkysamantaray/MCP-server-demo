@@ -5,8 +5,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "start:watch": "nodemon src/index.ts",
     "inspector:stdio": "npx @modelcontextprotocol/inspector npx ts-node ./src/index.ts",
-    "inspector:http": "npx @modelcontextprotocol/inspector http://localhost:3000",
     "inspector": "npx @modelcontextprotocol/inspector",
     "build": "tsc"
   },
@@ -19,12 +19,13 @@
     "@types/node": "^24.2.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3"
+    "@types/express": "^5.0.3",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2"
   }
 }

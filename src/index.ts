@@ -92,15 +92,11 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
     server.tool(
       'getPokemonDetails', // The name of the tool, used by the AI to call it.
       {
-        // We use Zod to define the input schema for our tool.
-        // The AI will be able to provide a 'name' as a string.
         name: z
           .string()
           .describe('The name of the Pokémon to get details for.'),
       },
       async ({ name }: { name: string }) => {
-        // This is the handler function for the tool.
-        // It receives the validated arguments (in this case, 'name').
         console.log(`Tool 'getPokemonDetails' called with name: ${name}`);
 
         let pokemonDetails: any = null;
@@ -114,8 +110,6 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
           pokemonDetails = await response.json();
         }
 
-        // We return the response as structured content.
-        // This is how the server sends a message back to the client/AI.
         if (!pokemonDetails) {
           return {
             content: [
