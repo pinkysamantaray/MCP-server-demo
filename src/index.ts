@@ -121,14 +121,7 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
           };
         } else {
           // Format the Pokémon details into a structured response
-          return {
-            content: [
-              {
-                type: 'text',
-                text: JSON.stringify(pokemonDetails, null, 2),
-              },
-            ],
-          };
+          return pokemonDetails;
         }
       }
     );
