@@ -11,3 +11,12 @@ For stdio:
 
 For HTTP:
 `npx @modelcontextprotocol/inspector http://localhost:3000`
+
+For local server:
+`npm run start`
+
+For Docker build:
+`docker -D build -t mcp-server-demo:latest .`
+
+For Docker run:
+`docker run -p 3000:3000 mcp-server-demo`
