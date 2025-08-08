@@ -1,12 +1,15 @@
-# Plan: Switch to StreamableHttpServerTransport
+Project Plan and Iteration:
 
-**Goal:** Modify the MCP server to use `StreamableHttpServerTransport` for HTTP-based communication, enabling deployment to Azure.
+1. Build an API Server with @modelcontextprotocol Typescript SDK
+   a. Start with STDIN for a basic input output(good for local development)
+   b. Build Streamable HTTP API afterwards
 
-## Progress Tracker
+2. Install the MCP Inspector and inspect the MCP Server. You can also use Postman, Claude Desktop(paid).
+   You should be able to view the resources, Tools, Prompts etc. defined in the MCP server.
 
-- [x] **Analyze `src/index.ts`**: Understand the current implementation using `StdioServerTransport`.
-- [x] **Modify `src/index.ts`**: Replace `StdioServerTransport` with `StreamableHttpServerTransport` and configure the server to listen on a port (e.g., 3000).
-- [x] **Update `Dockerfile`**: Add an `EXPOSE` instruction to the `Dockerfile` to expose the server's port.
-- [x] **Verify Changes**: Rebuild and run the Docker image to confirm the server operates correctly over HTTP.
+3. Create a Docker file and deploy to a web service platform(Azure, Render etc.)
+   In my case, I created a Docker image and upload to Docker Hub, used that as a source in Render deployment(Manual deployment).
+   Drawback with Render is that the free instance will spin down with inactivity, which can delay requests by 50 seconds or more.
 
-**Note:** The Docker build is failing due to a local Docker configuration issue. The server has been verified to run correctly locally. The `docker run` command has been provided to run the image once it has been built successfully.
+4. Integrate the MCP API URL within an Agentic AI tool.
+   In our case, Cognigy MCP Tool, we entered the details of the URL endpoint and Test it out.

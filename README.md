@@ -10,7 +10,7 @@ For stdio:
 `npx @modelcontextprotocol/inspector npx ts-node ./src/index.ts`
 
 For HTTP:
-`npx @modelcontextprotocol/inspector http://localhost:3000`
+`npx @modelcontextprotocol/inspector`
 
 For local server:
 `npm run start`

@@ -98,9 +98,8 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
       },
       async ({ name }: { name: string }) => {
         console.log(`Tool 'getPokemonDetails' called with name: ${name}`);
-
         let pokemonDetails: any = null;
-        // Fetch Pokémon details from an external API or database
+
         const response = await fetch(
           `https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(
             name.toLowerCase()
@@ -120,8 +119,55 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
             ],
           };
         } else {
-          // Format the Pokémon details into a structured response
-          return pokemonDetails;
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(pokemonDetails),
+              },
+            ],
+          };
+        }
+      }
+    );
+
+    // Define another tool for fetching Pokémon types
+    server.tool(
+      'getPokemonTypes', // The name of the tool, used by the AI to call it.
+      {
+        name: z.string().describe('Types of the Pokémon to get details for.'),
+      },
+      async ({ name }: { name: string }) => {
+        console.log(`Tool 'getPokemonTypes' called with name: ${name}`);
+        let pokemonTypes: any = null;
+
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/type/${encodeURIComponent(
+            name.toLowerCase()
+          )}`
+        );
+        if (response.ok) {
+          pokemonTypes = await response.json();
+        }
+
+        if (!pokemonTypes) {
+          return {
+            content: [
+              {
+                type: 'text',
+                text: `Pokémon with name '${name}' not found.`,
+              },
+            ],
+          };
+        } else {
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(pokemonTypes),
+              },
+            ],
+          };
         }
       }
     );
