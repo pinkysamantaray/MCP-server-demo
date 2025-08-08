@@ -5,7 +5,6 @@ import { randomUUID } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { isInitializeRequest } from '@modelcontextprotocol/sdk/types.js';
-import { server } from 'typescript';
 
 const app = express();
 app.use(express.json());
@@ -86,6 +85,57 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
             },
           ],
         };
+      }
+    );
+
+    // Define another tool for fetching Pokémon details
+    server.tool(
+      'getPokemonDetails', // The name of the tool, used by the AI to call it.
+      {
+        // We use Zod to define the input schema for our tool.
+        // The AI will be able to provide a 'name' as a string.
+        name: z
+          .string()
+          .describe('The name of the Pokémon to get details for.'),
+      },
+      async ({ name }: { name: string }) => {
+        // This is the handler function for the tool.
+        // It receives the validated arguments (in this case, 'name').
+        console.log(`Tool 'getPokemonDetails' called with name: ${name}`);
+
+        let pokemonDetails: any = null;
+        // Fetch Pokémon details from an external API or database
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(
+            name.toLowerCase()
+          )}`
+        );
+        if (response.ok) {
+          pokemonDetails = await response.json();
+        }
+
+        // We return the response as structured content.
+        // This is how the server sends a message back to the client/AI.
+        if (!pokemonDetails) {
+          return {
+            content: [
+              {
+                type: 'text',
+                text: `Pokémon with name '${name}' not found.`,
+              },
+            ],
+          };
+        } else {
+          // Format the Pokémon details into a structured response
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(pokemonDetails, null, 2),
+              },
+            ],
+          };
+        }
       }
     );
 

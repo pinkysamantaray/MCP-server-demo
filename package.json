@@ -7,6 +7,7 @@
     "start": "ts-node src/index.ts",
     "inspector:stdio": "npx @modelcontextprotocol/inspector npx ts-node ./src/index.ts",
     "inspector:http": "npx @modelcontextprotocol/inspector http://localhost:3000",
+    "inspector": "npx @modelcontextprotocol/inspector",
     "build": "tsc"
   },
   "keywords": [],
