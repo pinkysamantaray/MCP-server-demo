@@ -122,7 +122,7 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
           const responseObj = (({ types, stats, sprites, name, id }) => ({
             types,
             stats,
-            sprites,
+            image: sprites?.front_default,
             name,
             id,
           }))(pokemonDetails);
@@ -168,7 +168,7 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
           };
         } else {
           const responseObj = (({ pokemon }) => ({
-            pokemon,
+            pokemon: pokemon.splice(0, 5),
           }))(pokemonTypes);
           return {
             content: [
