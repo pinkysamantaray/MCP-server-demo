@@ -15,7 +15,4 @@ Project Plan and Iteration:
    In our case, Cognigy MCP Tool, we entered the details of the URL endpoint and Test it out.
 
 5. We added the Docker image in Azure with Azure Container Registry(ACR), exposed at port 3000.
-   MCP URL: http://mcp-server-demo.gydtbxdfevetghbm.westeurope.azurecontainer.io:3000/
-
-   docker tag pinkysamantaray/mcp-server-demo postnlmcp.azurecr.io/mcp-server-demo
-   docker push postnlmcp.azurecr.io/mcp-server-demo
+   MCP URL: https://mcp-server-demo.whitedune-f07a0ac5.westus2.azurecontainerapps.io/mcp

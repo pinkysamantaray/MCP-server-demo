@@ -119,11 +119,18 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
             ],
           };
         } else {
+          const responseObj = (({ types, stats, sprites, name, id }) => ({
+            types,
+            stats,
+            sprites,
+            name,
+            id,
+          }))(pokemonDetails);
           return {
             content: [
               {
                 type: 'text',
-                text: JSON.stringify(pokemonDetails),
+                text: JSON.stringify(responseObj),
               },
             ],
           };
@@ -133,12 +140,12 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
 
     // Define another tool for fetching Pokémon types
     server.tool(
-      'getPokemonTypes', // The name of the tool, used by the AI to call it.
+      'getPokemonsPerType', // The name of the tool, used by the AI to call it.
       {
-        name: z.string().describe('Types of the Pokémon to get details for.'),
+        name: z.string().describe('Type of the Pokémon to get details for.'),
       },
       async ({ name }: { name: string }) => {
-        console.log(`Tool 'getPokemonTypes' called with name: ${name}`);
+        console.log(`Tool 'getPokemonsPerType' called with name: ${name}`);
         let pokemonTypes: any = null;
 
         const response = await fetch(
@@ -160,11 +167,14 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
             ],
           };
         } else {
+          const responseObj = (({ pokemon }) => ({
+            pokemon,
+          }))(pokemonTypes);
           return {
             content: [
               {
                 type: 'text',
-                text: JSON.stringify(pokemonTypes),
+                text: JSON.stringify(responseObj),
               },
             ],
           };

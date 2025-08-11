@@ -5,27 +5,37 @@ The protocol currently defines two standard transport mechanisms for client-serv
 - stdio, communication over standard in and standard out(good for local development)
 - Streamable HTTP
 
-To use the inspector:
+## To Inspect MCP Server:
+
+start the local server:
+`npm run start:watch`
+
+You can check with Postman.
+
+You can also use the inspector.
 For stdio:
 `npx @modelcontextprotocol/inspector npx ts-node ./src/index.ts`
 
 For HTTP:
 `npx @modelcontextprotocol/inspector`
 
-For local server:
-`npm run start`
+## Docker Hub and Render
 
-For Docker build:
 `docker buildx build --platform linux/amd64,linux/arm64 -t pinkysamantaray/mcp-server-demo:latest .`
-`docker buildx build --platform linux/amd64,linux/arm64 -t postnlmcp.azurecr.io/mcp-server-demo:latest .`
-
-For Docker run:
 `docker run --name mcp-server-demo -d -p 3001:3000 pinkysamantaray/mcp-server-demo`
-Azure (ACR) Docker > `docker run --name mcp-server-demo -d -p 3001:3000 postnlmcp.azurecr.io/mcp-server-demo`
 
 Docker push to dockerhub
 `docker push pinkysamantaray/mcp-server-demo`
-Azure (ACR) Docker > `docker push postnlmcp.azurecr.io/mcp-server-demo`
 
-Steps to follow in case of a new commit:
+## Azure
+
+Azure (ACR) Docker >
+`docker buildx build --platform linux/amd64,linux/arm64 -t postnlmcp.azurecr.io/mcp-server-demo:latest .`
+
+`az login`
+`az acr login --name postnlmcp`
+`docker push postnlmcp.azurecr.io/mcp-server-demo`
+
+## Steps to follow in case of a new commit:
+
 git commit > docker build > docker push > render deploy
