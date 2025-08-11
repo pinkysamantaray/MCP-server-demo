@@ -39,3 +39,7 @@ Azure (ACR) Docker >
 ## Steps to follow in case of a new commit:
 
 git commit > docker build > docker push > render deploy
+
+## Other details:
+
+For this demo project, we have used PokeAPI(https://pokeapi.co/docs/v2)
