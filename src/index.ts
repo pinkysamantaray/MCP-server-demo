@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { isInitializeRequest } from '@modelcontextprotocol/sdk/types.js';
+import { promises as fs } from 'fs';
 
 const app = express();
 app.use(express.json());
@@ -44,6 +45,19 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
     const server = new McpServer({
       name: 'example-server',
       version: '1.0.0',
+      description: 'An example MCP server for demonstration purposes.',
+      capabilities: {
+        streaming: true,
+        batching: true,
+        logging: {},
+        tools: {
+          listChanged: true,
+        },
+        resources: {
+          subscribe: true,
+          listChanged: true,
+        },
+      },
     });
 
     // ... set up server resources, tools, and prompts ...
@@ -56,6 +70,40 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
           {
             uri: 'status://server',
             text: `Server is running and operational.`,
+          },
+        ],
+      };
+    });
+
+    // We'll create a resource to download a file
+    server.resource('downloadFile', 'file:///download', async () => {
+      // Import fs/promises at the top of your file:
+      // import { promises as fs } from 'fs';
+      const filePath = './download/example.txt';
+      let fileContent: string;
+      try {
+        fileContent = await fs.readFile(filePath, 'utf-8');
+      } catch (err) {
+        return {
+          contents: [
+            {
+              uri: 'file:///download',
+              name: 'example.txt',
+              title: 'Example Text File',
+              mimeType: 'text/plain',
+              text: `Error reading file: ${(err as Error).message}`,
+            },
+          ],
+        };
+      }
+      return {
+        contents: [
+          {
+            uri: 'file:///download',
+            name: 'example.txt',
+            title: 'Example Text File',
+            mimeType: 'text/plain',
+            text: fileContent,
           },
         ],
       };

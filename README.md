@@ -1,5 +1,12 @@
 ## MCP uses two types of communications:
 
+Server has these features:
+
+- Resources (read-only, well defined)
+- Tools (takes parameter, can do CRUD tasks)
+- Prompts (exposes prompts to client)
+- Utilities
+
 The protocol currently defines two standard transport mechanisms for client-server communication:
 
 - stdio, communication over standard in and standard out(good for local development)
