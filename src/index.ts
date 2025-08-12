@@ -43,6 +43,8 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
         delete transports[transport.sessionId];
       }
     };
+
+    // Create the MCP server
     const server = new McpServer({
       name: 'example-server',
       version: '1.0.0',
@@ -244,6 +246,7 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
       },
       id: null,
     });
+
     return;
   }
 
