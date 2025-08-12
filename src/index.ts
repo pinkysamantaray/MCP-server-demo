@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { z } from 'zod';
+import path from 'path';
 import { randomUUID } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -77,9 +78,10 @@ app.post('/mcp', async (req: express.Request, res: express.Response) => {
 
     // We'll create a resource to download a file
     server.resource('downloadFile', 'file:///download', async () => {
-      // Import fs/promises at the top of your file:
-      // import { promises as fs } from 'fs';
-      const filePath = './download/example.txt';
+      // This resource will read a file from the server's filesystem and return its contents.
+      console.log(`Resource 'downloadFile' called`);
+
+      const filePath = path.resolve(__dirname, 'public/download/example.txt');
       let fileContent: string;
       try {
         fileContent = await fs.readFile(filePath, 'utf-8');

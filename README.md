@@ -38,6 +38,7 @@ Docker push to dockerhub
 
 Azure (ACR) Docker >
 `docker buildx build --platform linux/amd64,linux/arm64 -t postnlmcp.azurecr.io/mcp-server-demo:latest .`
+`docker run --name mcp-server-demo -d -p 3001:3000 postnlmcp.azurecr.io/mcp-server-demo`
 
 `az login`
 `az acr login --name postnlmcp`
