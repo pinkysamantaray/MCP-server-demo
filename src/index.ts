@@ -273,7 +273,7 @@ const handleSessionRequest = async (
 app.use(
   cors({
     origin: '*', // Configure appropriately for production, for example:
-    // origin: ['https://your-remote-domain.com', 'https://your-other-remote-domain.com'],
+    // origin: ['https://your-remote-domain.com'],
     exposedHeaders: ['Mcp-Session-Id'],
     allowedHeaders: ['Content-Type', 'mcp-session-id'],
   })

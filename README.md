@@ -2,7 +2,7 @@
 
 Server has these features:
 
-- Resources (read-only, well defined)
+- Resources (Resources represent well defined data or files that an MCP client can read)
 - Tools (takes parameter, can do CRUD tasks)
 - Prompts (exposes prompts to client)
 - Utilities

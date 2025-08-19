@@ -1,7 +1,6 @@
 {
   "name": "mcp-server-demo",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "start": "ts-node src/index.ts",
